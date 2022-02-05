@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Highlight Demo</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h3>题目传送</h3>
+<a href="https://www.luogu.com.cn/problem/CF1555A">洛谷</a>
+<a href="https://codeforces.com/problemset/problem/1555/A">CF</a>
+<h3>题目分析</h3>
+这题有 3 大要点：<br>
+平均价一样 2.5 分钟，只需满足尽量披萨数与人数差尽量小。<br>
+6,8,10 可以凑出所有大于等于 6 的偶数。  <br>
+转化一下：3,4,5 可以凑出所有大于等于 3 的整数，因为 3,4 凑不出的最大数为 5，具体见<a href="https://www.luogu.com.cn/problem/P3951">洛谷 P3951。 </a><br>
+语言特性：大部分编程语言做除法都是向下取整，所以数学上四舍五入 a 除以 b 等于编程语言中的 <code>(a+1)/b</code>。    <br>
+<h3>做题思路</h3>
+先特判：  <br>
+n &lt; 6 是 15 分钟；<br>
+n &ge; 6 时，输出 <code>(n+1)/2*5</code>,（因为 n 可能是奇数，所以要加 1），前面提到，这个 <img src="http://latex.codecogs.com/gif.latex?\frac{n + 1}{2}"/>一定会被 3,4,5 凑出来，然后把乘 2.5 转化为除以 2 乘 5（否则万一 n+1 是奇数就玩完）。  
+<h3>AC代码</h3>
+<h4>C++版</h4>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+#define ll long long
+int main()
+{
+	ll t;
+	cin>>t;
+	while(t--)
+	{
+		ll n;
+		cin>>n;
+		if(n<6)n=6;
+		cout<<(n+1)/2*5<<endl;
+	}
+	return 0;
+}
+</code></pre>
+<h4>Python版</h4>
+<pre><code class="language-cpp">t=int(input())
+for tt in range(t):
+    n=int(input())
+    if n<6:
+        print(15)
+    else:
+        print((n+1)//2*5)
+</code></pre>
+</body>
+</html>

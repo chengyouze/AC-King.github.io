@@ -16,8 +16,8 @@
 <h3>题目翻译</h3>
 有一个三角形，如果是直角三角形输出 <code>RIGHT</code>。否则，如果可以将一个点挪动 1 的距离，那么输出 <code>ALMOST</code> 。若都不满足，则输出 <code>NEITHER</code> 。
 <h3>题目分析</h3>
-勾股定理：<img src="images/勾股定理.jpg"><br>
-距离公式：<img src="images/距离公式.jpg"><br>
+勾股定理：<img src="http://latex.codecogs.com/gif.latex?a^2+b^2=c^2"><br>
+距离公式：<img src="http://latex.codecogs.com/gif.latex?\sqrt{(x1-x2)^2+(y1-y2)^2}"/><br>
 那么可以根据给的坐标点，算出三个线段的长，最后用勾股定理公式判断一下。<br>
 那么判断勾股定理代码为：<br/>
 <pre><code class="language-cpp">bool check(int a,int b,int c)
