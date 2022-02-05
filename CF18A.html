@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Highlight Demo</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h3>题目翻译</h3>
+有一个三角形，如果是直角三角形输出 <code>RIGHT</code>。否则，如果可以将一个点挪动 1 的距离，那么输出 <code>ALMOST</code> 。若都不满足，则输出 <code>NEITHER</code> 。
+<h3>题目分析</h3>
+勾股定理：<img src="images/勾股定理.jpg"><br>
+距离公式：<img src="images/距离公式.jpg"><br>
+那么可以根据给的坐标点，算出三个线段的长，最后用勾股定理公式判断一下。<br>
+那么判断勾股定理代码为：<br/>
+<pre><code class="language-cpp">bool check(int a,int b,int c)
+{
+    //模拟冒泡排序，将abc排成从小到大排序。
+    if(a>b)swap(a,b);
+    if(b>c)swap(b,c);
+    return a+b==c&&a>0&&b>0&&c>0;//判断，3条线段是否构成直角，并且长度大于0
+}
+</code></pre>
+因为如果求距离时开根会影响精度，那么长度不开根，勾股定理公式也不用平方了。<br>
+由于C++没有Python那种 <code>x**2</code> 的高科技，那么就手写一波算平方。<br>
+<pre><code class="language-cpp">int mi(int a)
+{
+	return a*a;
+}
+</code></pre>
+<s>简简单单三行代码小白都会叫手写?</s><br>
+然后我们就可以写出算每条线段的长度了。<br>
+<pre><code class="language-cpp">if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("RIGHT");return 0;}
+if(check(mi((x[1]+1)-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi((x[1]+1)-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi((x[1]-1)-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi((x[1]-1)-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi((y[1]+1)-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi((y[1]+1)-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi((y[1]-1)-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi((y[1]-1)-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-(x[2]+1))+mi(y[1]-y[2]),mi((x[2]+1)-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-(x[2]-1))+mi(y[1]-y[2]),mi((x[2]-1)-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi(y[1]-(y[2]+1)),mi(x[2]-x[3])+mi((y[2]+1)-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi(y[1]-(y[2]-1)),mi(x[2]-x[3])+mi((y[2]-1)-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-(x[3]+1))+mi(y[2]-y[3]),mi(x[1]-(x[3]+1))+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-(x[3]-1))+mi(y[2]-y[3]),mi(x[1]-(x[3]-1))+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-(y[3]+1)),mi(x[1]-x[3])+mi(y[1]-(y[3]+1)))){puts("ALMOST");return 0;}
+if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-(y[3]-1)),mi(x[1]-x[3])+mi(y[1]-(y[3]-1)))){puts("ALMOST");return 0;}
+puts("NEITHER");
+</code></pre>
+<s>太长了，大家copy就好</s><br>
+大家还是要自己写的啊！杜绝ctrl+A,ctrl+C,ctrl+V！<br>
+
+<h3>AC代码</h3>
+其实已经给出来了，全部拼到一起即可。<br>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+bool check(int a,int b,int c)
+{
+	if(a>b)swap(a,b);
+	if(b>c)swap(b,c);
+	return a+b==c&&a>0&&b>0&&c>0;
+}
+int mi(int a)
+{
+	return a*a;
+}
+int x[4],y[4];
+int main()
+{
+	for(int i=1;i<=3;i++)
+	{
+		cin>>x[i]>>y[i];
+	}
+	if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("RIGHT");return 0;}
+	if(check(mi((x[1]+1)-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi((x[1]+1)-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi((x[1]-1)-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi((x[1]-1)-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi((y[1]+1)-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi((y[1]+1)-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi((y[1]-1)-y[2]),mi(x[2]-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi((y[1]-1)-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-(x[2]+1))+mi(y[1]-y[2]),mi((x[2]+1)-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-(x[2]-1))+mi(y[1]-y[2]),mi((x[2]-1)-x[3])+mi(y[2]-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi(y[1]-(y[2]+1)),mi(x[2]-x[3])+mi((y[2]+1)-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi(y[1]-(y[2]-1)),mi(x[2]-x[3])+mi((y[2]-1)-y[3]),mi(x[1]-x[3])+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-(x[3]+1))+mi(y[2]-y[3]),mi(x[1]-(x[3]+1))+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-(x[3]-1))+mi(y[2]-y[3]),mi(x[1]-(x[3]-1))+mi(y[1]-y[3]))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-(y[3]+1)),mi(x[1]-x[3])+mi(y[1]-(y[3]+1)))){puts("ALMOST");return 0;}
+	if(check(mi(x[1]-x[2])+mi(y[1]-y[2]),mi(x[2]-x[3])+mi(y[2]-(y[3]-1)),mi(x[1]-x[3])+mi(y[1]-(y[3]-1)))){puts("ALMOST");return 0;}
+	puts("NEITHER");
+	return 0;
+}
+</code></pre>
+</body>
+</html>
