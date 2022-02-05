@@ -25,7 +25,7 @@
 <h3>做题思路</h3>
 先特判：  <br>
 n &lt; 6 是 15 分钟；<br>
-n &ge; 6 时，输出 <code>(n+1)/2*5</code>,（因为 n 可能是奇数，所以要加 1），前面提到，这个 <img src="http://latex.codecogs.com/gif.latex?\frac{n + 1}{2}"/>一定会被 3,4,5 凑出来，然后把乘 2.5 转化为除以 2 乘 5（否则万一 n+1 是奇数就玩完）。  
+n &ge; 6 时，输出 <img src="http://latex.codecogs.com/gif.latex?\frac{n + 1}{2} \times 5"/>,（因为 n 可能是奇数，所以要加 1），前面提到，这个 <img src="http://latex.codecogs.com/gif.latex?\frac{n + 1}{2}"/>一定会被 3,4,5 凑出来，然后把乘 2.5 转化为除以 2 乘 5（否则万一 n+1 是奇数就玩完）。  
 <h3>AC代码</h3>
 <h4>C++版</h4>
 <pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
@@ -40,7 +40,7 @@ int main()
 		ll n;
 		cin>>n;
 		if(n<6)n=6;
-		cout<<(n+1)/2*5<<endl;
+		cout<<(n+1)/2*5<&lt;endl;
 	}
 	return 0;
 }
