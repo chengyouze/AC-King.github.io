@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CF1615A</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h3>题目翻译</h3>
+<p>一个 01 串，找到一个它的子串，1 的个数多删所有 0，0 的个数多删所有 1。问最多删几个数。</p>
+<h3>题目思路</h3>
+<p>首先统计 01 个数是必须的。</p>
+<p>之后，分类讨论 3 种情况。</p>
+<h4>情况1：0 的个数比 1 多。</h4>
+<p>输出 1 的个数。</p>
+<h4>情况2：1 的个数比 0 多。</h4>
+<p>输出 0 的个数。</p>
+<h4>情况 3：1 的个数和 0 的个数相等。</h4>
+<p>这里有个小问题。</p>
+<p>有人可能问，一样不是输出 0 吗？</p>
+<p>但是，重新审题。<strong>找到一个它的子串</strong>，这里划重点。</p>
+<p>也就是说，不用看整个字符串。</p>
+<p>那么我们少拿一个 0 或少拿一个 1，答案就更多了。</p>
+<p>所以，输出 0 的个数 -1。</p>
+<h3>题目代码</h3>
+<pre><code class="language-cpp">void solve()
+{
+    string s;
+    cin&gt;&gt;s;
+    int cnt0=0,cnt1=0;
+    for(int i=0;i&lt;s.size();i++)//记录01个数
+    {
+        if(s[i]=='1')cnt1++;
+        else cnt0++;
+    }
+    if(cnt0==cnt1)cout&lt;&lt;cnt0-1&lt;&lt;endl;//分类讨论
+    else cout&lt;&lt;min(cnt0,cnt1)&lt;&lt;endl;
+}</code></pre>
+<p>多组数据，代码未全。请勿copy，当心踩坑！</p>
+</body>
+</html>

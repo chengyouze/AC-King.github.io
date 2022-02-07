@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CF1613B</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h4>题目翻译：</h4>
+<p>有 n 个数，把它转化成 k 位的 <strong>二进制</strong> 数，然后找到一个 <strong>十进制</strong> 数，使它的二进制数与那 n 个数每一位不相同的个数最小。</p>
+<h4>题目思路：</h4>
+<p>把这 n 的数转化为二进制是必要的，然后算出从 0 到 k-1 位分别有几个 <code>0</code> 和几个 <code>1</code> ，使不相同的位数少，就取 <strong>多出现</strong> 的来当答案的某一位。</p>
+<h4>样例解释</h4>
+<p>我们拿</p>
+<p>3 5</p>
+<p>18 9 21</p>
+<p>这组数据来解释</p>
+<p>18转化成5位二进制数，是10010。</p>
+<p>9转化成5位二进制数，是01001。</p>
+<p>21转化成5位二进制数，是10101。</p>
+<p>第0位选 <code>1</code> ，第1位选 <code>0</code> ，第2位选 <code>0</code> ，第3位选 <code>0</code> ，第4位选 <code>1</code> 。</p>
+<p>那么答案是 <code>10001</code> ，转十进制是17。</p>
+<h4>正确代码(注释版)</h4>
+<pre><code class="language-cpp">void solve()
+{
+    long long n,k,sum=0;
+    string ans="";
+    cin&gt;&gt;n&gt;&gt;k;
+    long long cnt[k+1];
+    memset(cnt,0,sizeof(cnt));
+    for(long long i=1;i&lt;=n;i++)
+    {
+        long long x;
+        cin&gt;&gt;x;
+        string s="";
+        while(x&gt;0)//转二进制
+        {
+            s=char(x%2+'0')+s;
+            x/=2;
+        }
+        while(s.size()&lt;k)//添0
+        {
+            s="0"+s;
+        }
+        reverse(s.begin(),s.end());
+        for(long long j=0;j&lt;k;j++)//找每个位置上0和1出现的个数,是0加一，不是减一，然后判断大小就知道0多还是1多
+        {
+            if(s[j]=='0')cnt[j]+=1LL;
+            else cnt[j]-=1LL;
+        }
+    }
+    for(int j=0;j&lt;k;j++)
+    {
+        ans+=(cnt[j]&lt;0LL?'1':'0');//上文说的判断
+    }   
+    long long z=1LL;
+    for(int i=0;i&lt;k;i++)
+    {
+        sum+=(ans[i]=='1'?z:0LL);
+        z*=2LL;
+    }
+    cout&lt;&lt;sum&lt;&lt;endl;
+}</code></pre>
+<h4>正确代码(压缩版)</h4>
+<pre><code class="language-cpp">void solve()
+{
+    long long n,k,sum=0;
+    string ans="";
+    cin&gt;&gt;n&gt;&gt;k;
+    long long cnt[k+1];
+    memset(cnt,0,sizeof(cnt));
+    for(long long i=1;i&lt;=n;i++)
+    {
+        long long x;
+        cin&gt;&gt;x;
+        string s="";
+        for(;x&gt;0;s=char(x%2+'0')+s,x/=2);
+        for(int i=s.size();i&lt;k;i++,s="0"+s);
+        reverse(s.begin(),s.end());
+        for(long long j=0;j&lt;k;s[j]=='0'?cnt[j++]+=1LL:cnt[j++]-=1LL);
+    }
+    for(int j=0;j&lt;k;ans+=(cnt[j++]&lt;0LL?'1':'0'));
+    long long z=1LL;
+    for(int i=0;i&lt;k;sum+=(ans[i++]=='1'?z:0LL),z*=2LL);
+    cout&lt;&lt;sum&lt;&lt;endl;
+}</code></pre>
+<p>多组数据，代码未全。请勿copy，当心踩坑！</p>
+<h4>番外篇</h4>
+<p>关于我如何在比赛时把三十多行的代码打了一个多小时（也是大家做题思路没错却出问题该查的点）：</p>
+<p>1：我定义 <code>long long</code> 没写 <code>LL</code> 。</p>
+<p>2：我在函数里写数组没初始化。</p>
+<p>3：我的嵌套循环用了同一个字母。</p>
+</body>
+</html>

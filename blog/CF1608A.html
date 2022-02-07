@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CF1608A</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<p><a href="https://codeforces.com/problemset/problem/1608/A">CF题目</a></p>
+<p><a href="https://www.luogu.com.cn/problem/CF1608A">洛谷题目</a></p>
+<p><a href="https://codeforces.com/contest/1608/submission/138728750">CF记录(C++)</a></p>
+<p><a href="https://codeforces.com/contest/1608/submission/138820503">CF记录(python)</a></p>
+<p><a href="https://www.luogu.com.cn/record/64838326">洛谷记录(C++)</a></p>
+<p><a href="https://www.luogu.com.cn/record/64840350">洛谷记录(python)</a></p>
+<h4>1. 审题</h4>
+<p>不能被整除，说明 <img src="http://latex.codecogs.com/gif.latex?a_i \quad mod \quad a_{i-1} \quad \ne 0" /> ，说简单点，<img src="http://latex.codecogs.com/gif.latex?a_i" /> 不是 <img src="http://latex.codecogs.com/gif.latex?a_{i-1}" /> 的倍数。 </p>
+<h4>2.思考</h4>
+<p>怎样才能让 <img src="http://latex.codecogs.com/gif.latex?a_i" /> 不是 <img src="http://latex.codecogs.com/gif.latex?a_{i-1}" /> 的倍数呢？</p>
+<p>有一种很容易想到的办法：<img src="http://latex.codecogs.com/gif.latex?a_i" /> 只比 <img src="http://latex.codecogs.com/gif.latex?a_{i-1}" /> 大一点，还达不到 <img src="http://latex.codecogs.com/gif.latex?a_{i-1}" /> 的两倍。</p>
+<p>那么就很好想到了， <img src="http://latex.codecogs.com/gif.latex?a_i=a_{i-1}+1" /> ，满足<strong>不能被整除</strong>以及<strong>递增数组</strong>的限制条件，而且题目中的 n 最大只有 1000 ，每次加一肯定不会超过 <img src="http://latex.codecogs.com/gif.latex?10^9" /> ，那么这题可以完结撒花了。</p>
+<p>有个注意点，需要从 $ 开始累加，因为 2 是 1 的倍数。</p>
+<h4>3.代码</h4>
+<p>C++版</p>
+<pre><code class="language-cpp">void solve()
+{
+    int n;
+    cin&gt;&gt;n;
+    for(int i=2;i&lt;=n+1;i++)//题解有说为什么是2到n+1
+    {
+        cout&lt;&lt;i&lt;&lt;" ";
+    }
+    cout&lt;&lt;endl;
+} </code></pre>
+<p>python版</p>
+<pre><code class="language-python">def solve():
+    n=int(input())
+    for i in range(2,n+2)://同上，但是因为python的for循环的性质需要多写一次
+        print(i,end=' ')
+    print()
+</code></pre>
+<p>多组数据，代码未全，请勿copy，当心踩坑！</p>
+</body>
+</html>

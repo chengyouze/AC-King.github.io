@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CF1615A</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h4>题目翻译</h4>
+<p>对于一个区间 [l,r]，你可以选择其中一个数 k，然后删除 [l,r] 这个区间。若 <img src="http://latex.codecogs.com/gif.latex?l\leqslant k-1" />  则建立 $[l,k-1]$ 区间，若 <img src="http://latex.codecogs.com/gif.latex?k+1\leqslant r" /> 则建立 [k+1,r] 区间。</p>
+<p>初始有一个 [1,n] 的区间，它将不断执行上述操作直到区间全部删除，给出过程中出现的所有区间，问出现的所有区间中选择的 k 分别是哪些。</p>
+<h4>题目翻译化简版</h4>
+<p>有 n 个区间 [l,r]。从每个区间中选择一个数，使得选出的数为 n 的排列。</p>
+<h4>做题思路</h4>
+<p>由于总会有一个区间只包含一个数（也就是题目描述中游戏结束的那一轮），那么我们可以把这个区间的长度进行排序，依次求出每个区间应该选择的数。</p>
+<h4>样例分析</h4>
+<p>按我的方法说下样例1的第6个点：</p>
+<pre><code>6
+
+1 1
+
+3 5
+
+4 4
+
+3 6
+
+4 5
+
+1 6</code></pre>
+<p>这是原样例，按我的方法将它按长度排序得：</p>
+<pre><code>6
+
+1 1(长度为1)(选择1)
+
+4 4(长度为1)(选择4)
+
+4 5(长度为2)(4被选，选5)
+
+3 5(长度为3)(4,5被选，选3)
+
+3 6(长度为4)(3,4,5被选，选6)
+
+1 6(长度为6)$ $(1,3,4,5,6被选，选2)</code></pre>
+<p>是不是明白了？那么放代码了</p>
+<h4>题目代码</h4>
+<pre><code class="language-cpp">struct k 
+{
+    int l,r,ans;
+    bool f=0;
+};//分别为区间端点l,r以及答案选择的数字还有标记
+bool cmp(k a,k b)//比较长度排序
+{
+    if(a.r-a.l&gt;b.r-b.l)return 0;
+    if(a.r-a.l&lt;b.r-b.l)return 1;
+    return a.l&lt;b.l;
+}
+void solve()
+{
+    int n;
+    cin&gt;&gt;n;
+    k a[n+1];
+    for(int i=1;i&lt;=n;i++)
+    {
+        cin&gt;&gt;a[i].l&gt;&gt;a[i].r;
+    }
+    sort(a+1,a+n+1,cmp);//自定义排序
+    for(int i=1;i&lt;=n;i++)
+    {
+        for(int j=a[i].l;j&lt;=a[i].r;j++)//由于n很小，所以直接循环区间也不会超时
+        {
+            if(a[j].f==0)//如果没被选择
+            {
+                a[j].f=1;//打上标记
+                a[i].ans=j;
+                break;
+            }
+        }
+    }
+    for(int i=1;i&lt;=n;i++)
+    {
+        cout&lt;&lt;a[i].l&lt;&lt;" "&lt;&lt;a[i].r&lt;&lt;" "&lt;&lt;a[i].ans&lt;&lt;endl;//输出，可以交换任意区间的输出顺序
+    }
+//  cout&lt;&lt;endl;
+}</code></pre>
+<p>多组数据，代码未全。请勿copy，当心踩坑。</p>
+</body>
+</html>

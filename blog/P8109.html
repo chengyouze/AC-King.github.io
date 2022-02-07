@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="blog-uid" content="516346">
+  <meta name="blog-name" content="chenyuxuan__2009 的博客">
+  <meta name="current-user" content="516346">
+  <link rel="stylesheet" href="/static/blog/debug/common.css">
+  <link rel="stylesheet" href="/static/blog/debug/article.css">
+  <title>P8109 - chenyuxuan__2009 的博客 - 洛谷博客</title>
+</head>
+<body>
+<div>
+  <div class="ui main text container">
+    <h1 class="ui header">chenyuxuan__2009 的博客</h1>
+    <p></p>
+  </div>
+
+  <div class="ui borderless main menu">
+    <div class="ui text container">
+      <a href="." class="header item">
+        首页
+      </a>
+      <a href="." class="item">文章</a>
+        <a href="https://www.luogu.com.cn/blogAdmin" class="right item">管理后台</a>
+    </div>
+  </div>
+
+  <div class="ui text container" id="blog-container"
+       data-blogid="410544"
+       data-vote="0"
+       data-thumbUp="0">
+      <h1 class="ui">
+          P8109
+          <div id="article-vote"></div>
+      </h1>
+      <div class="ui divider"></div>
+      <div id="article-content">
+          <h3>题目思路</h3>
+<p>既然要尽量多，也就是说，队伍通过少的题目对应气球较少的颜色，这样保证不会让通过多的只分到一点，而通过少的题目气球用不完。</p>
+<h3>题目代码</h3>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int a[100005],b[100005];
+int main()
+{
+    int n,ans=0;
+    cin&gt;&gt;n;
+    for(int i=1;i&lt;=n;i++)cin&gt;&gt;a[i];//通过队伍数
+    for(int i=1;i&lt;=n;i++)cin&gt;&gt;b[i];//气球数
+    //题目的输入已经排好序了。
+    for(int i=1;i&lt;=n;i++)
+    {
+        ans+=a[i];//每题通过每个队伍肯定要拿一只气球
+        if(b[i]&lt;a[i])ans-=a[i]-b[i];//如果不够，就少给一点气球
+    }
+    cout&lt;&lt;ans&lt;&lt;endl;
+    return 0;
+}</code></pre>
+          <br>
+      </div>
+      <p>
+          <i class="wait icon"></i>2022-02-06 20:23:58 in <a href=".#type=题解">题解</a>
+              &emsp;
+              <a href="https://www.luogu.com.cn/blogAdmin/article/edit/410544">编辑</a>
+      </p>
+  
+      <div id="article-comments"></div>
+  </div>
+  
+  <link rel="stylesheet" href="/static/blog/debug/katex.css">
+
+  <div class="ui inverted vertical footer segment" style="margin-top: 150px; padding: 3em 0;">
+    <div class="ui center aligned container">
+      <div class="ui horizontal inverted small divided link list">
+        <a class="item" href="_sitemap">Site Map</a>
+        <a class="item" href="https://github.com/luogu-dev/luogu-blog-frontend">GitHub</a>
+        <a class="item" href="https://www.luogu.com.cn">洛谷</a>
+      </div>
+      <p>Powered by Luogu Blog. Theme by lin_toto. All rights reserved.</p>
+    </div>
+  </div>
+</div>
+<script>
+var BlogGlobals = {
+  blogName: document.querySelector('meta[name=blog-name]').getAttribute('content'),
+  blogUID: parseInt(document.querySelector('meta[name=blog-uid]').getAttribute('content')),
+  currentUser: parseInt(document.querySelector('meta[name=current-user]').getAttribute('content')),
+  luoguAddress: 'https://www.luogu.com.cn',
+  picAddress: 'https://cdn.luogu.com.cn'
+}
+</script>
+<script src="/static/blog/debug/common.js"></script>
+<script>
+var blogContainer = document.getElementById('blog-container')
+BlogGlobals.blogID = parseInt(blogContainer.getAttribute('data-blogid'))
+BlogGlobals.vote = parseInt(blogContainer.getAttribute('data-vote'))
+BlogGlobals.thumbUp = parseInt(blogContainer.getAttribute('data-thumbUp'))
+</script>
+<script src="/static/blog/debug/article.js"></script>
+</body>
+</html>

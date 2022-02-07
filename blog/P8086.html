@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P8086</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<<h3>题目思路</h3>
+<p>一个简单的模拟。注意关键信息：只有第一条有效记录会被计算。那么我们对于每个编号，判断是否出现过，是的话不做操作；否的话总时间加上歌曲时间，然后把编号打上标签。</p>
+<h3>题目做法</h3>
+<h4>主角：bitset</h4>
+<p>既然大家都开数组写模拟，那么我们也要跟上新时代的步伐，跟上大家的脚步。所以我教大家使用 <code>bitset</code>。</p>
+<p>首先，我们认识一下它：</p>
+<p><code>bitset</code> 定义于头文件 <code>#include&lt;bitset&gt;</code> 中，相当于一个 <code>bool</code> 数组。</p>
+<p>使用时，<code>bitset&lt;大小，也就是存储容量&gt; +名字</code>。</p>
+<p>而且，<code>bitset</code> 会比正常 <code>bool</code> 数组要快。</p>
+<h4>做法：打标签</h4>
+<pre><code class="language-cpp">n=read();
+for(i=1;i&lt;=n;i++)
+{
+    x=read();t=read();
+    if(t&gt;1&amp;&amp;a[x]==0)//如果时间&lt;=1，无效。如果编号出现过，无效。
+    {
+        ans+=t;//总时间加上歌曲时间
+        a[x]=1;//给这首歌打上标签，表示算过了
+    }
+}
+printf("%lld",ans);</code></pre>
+<h4>优化：快读</h4>
+<p>良心出题人把快读模板给了，但是，我不用！</p>
+<p>奉上我的模板一份。</p>
+<pre><code class="language-cpp">#define getchar() p1==p2&amp;&amp;(p2=(p1=buf)+fread(buf,1,1000000,stdin),p1==p2)?EOF:*p1++
+char buf[10000005],*p1=buf,*p2=buf;
+inline int read()
+{
+    register char c=getchar();register int x=0;register bool f=0;
+    for(;!isdigit(c);c=getchar())f^=!(c^45);
+    for(;isdigit(c);c=getchar())x=(x&lt;&lt;1)+(x&lt;&lt;3)+(c^48);
+    if(f)x=-x;return x;
+}</code></pre>
+<p>调取时和正常的快读一样。</p>
+<h3>完整代码</h3>
+<pre><code class="language-cpp">#include&lt;bitset&gt;
+#define getchar() p1==p2&amp;&amp;(p2=(p1=buf)+fread(buf,1,1000000,stdin),p1==p2)?EOF:*p1++
+char buf[10000005],*p1=buf,*p2=buf;
+inline int read()//针对本题无负数情况略加修改了快读
+{
+    register char c=getchar();register int x=0;
+    for(;!isdigit(c);c=getchar());
+    for(;isdigit(c);c=getchar())x=(x&lt;&lt;1)+(x&lt;&lt;3)+(c^48);
+    return x;
+}
+long long ans;//记录答案
+int x,t,n,i;
+std::bitset&lt;10000005&gt;a;
+int main()
+{
+    n=read();
+    for(i=1;i&lt;=n;i++)
+    {
+        x=read();t=read();
+        if(t&gt;1&amp;&amp;a[x]==0)
+        {
+            ans+=t;
+            a[x]=1;
+        }
+    }
+    printf("%lld",ans);
+    return 0;
+}</code></pre>
+<p>题解就到这啦，这是当天洛谷本站最优解代码！</p>
+</body>
+</html>

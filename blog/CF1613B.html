@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CF1613B</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<p><a href="https://codeforces.com/problemset/problem/1608/A">CF题目</a></p>
+<p><a href="https://www.luogu.com.cn/problem/CF1608A">洛谷题目</a></p>
+<p><a href="https://codeforces.com/contest/1608/submission/138728750">CF记录(C++)</a></p>
+<p><a href="https://codeforces.com/contest/1608/submission/138820503">CF记录(python)</a></p>
+<p><a href="https://www.luogu.com.cn/record/64838326">洛谷记录(C++)</a></p>
+<p><a href="https://www.luogu.com.cn/record/64840350">洛谷记录(python)</a></p>
+<p>题目说了，每组数不同，并且 x mod y 也不出现在数组 a 中，那么我们可以对数组进行<strong>排序</strong>，因为 a mod b 得出的结果是<strong>一定比 b 小的</strong>。那么拿数组的其他数分别去取模最小的数，那么得出的结果一定比数组最小的数还小，则一定<strong>不可能出现</strong>在数组 a 之内。</p>
+<p>简单解释一下这个数据：</p>
+<p>6</p>
+<p>2 7 5 3 4 8</p>
+<p>按我的思路，则会排序成以下数组：</p>
+<p>2 3 4 5 7 8 </p>
+<p>3 mod 2 不在数组 a 中</p>
+<p>4 mod 2 不在数组 a 中</p>
+<p>5 mod 2 不在数组 a 中</p>
+<p>7 mod 2 不在数组 a 中</p>
+<p>8 mod 2 不在数组 a 中</p>
+<p>贴代码：</p>
+<pre><code class="language-cpp">void solve()
+{
+    int n;
+    cin&gt;&gt;n;
+    int a[n];
+    for(int i=0;i&lt;n;i++) 
+    {
+        cin&gt;&gt;a[i];
+    }
+    sort(a,a+n);
+    for(int i=0;i&lt;n/2;i++)//n/2组数据即可 
+    {
+        cout&lt;&lt;a[n-i-1]&lt;&lt;" "&lt;&lt;a[0]&lt;&lt;endl;//分别输出x与y,注意顺序，必须x在前y在后 
+    }
+}</code></pre>
+<p>多组数据，代码未全，当心踩坑</p>
+</body>
+</html>

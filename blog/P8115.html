@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P8115</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h3>题目思路</h3>
+<p>首先，要找到所有的数字。</p>
+<p>其次，每个数字转化十六进制，与十进制判断一下。</p>
+<p>最后，输出 <code>{}</code> 和几个 十进制 或 十六进制 的数字。</p>
+<p>C++选手注意：<img src="http://latex.codecogs.com/gif.latex?2^{64}" /> 爆 <code>long long</code> ，需要使用 <code>__int128</code> 。</p>
+<h3>题目代码</h3>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll __int128 //上文提及
+using namespace std;
+string c="0123456789ABCDEF";
+string s="0x",st;
+string k;
+ll x;
+void f(ll x)
+{
+    if(x/16) f(x/16);
+    s=s+c[x%16];//逆向找出结果。
+}
+int main()
+{
+    cin&gt;&gt;k;
+    cout&lt;&lt;"{";
+    for(int i=1;i&lt;k.size();i++)//第一个一定是 { ，不用判断。最后一个 } 当做下文 else 的判断
+    {
+        if(k[i]&gt;='0'&amp;&amp;k[i]&lt;='9')//如果这一位是数字
+        {
+            st+=k[i];//十进制加上去
+            x=x*10+(k[i]-'0');//换算成数字
+        }
+        else //这一位是 , 或 }
+        {
+            f(x);//当前结果换成十六进制
+            if(s.size()&lt;=st.size())//比较长度
+            {
+                if(i!=k.size()-1)//最后一个数字不用输出 ,
+                    cout&lt;&lt;s&lt;&lt;",";
+                else 
+                    cout&lt;&lt;s;
+            }
+            else 
+            {
+                if(i!=k.size()-1)//最后一个数字不用输出 ,
+                    cout&lt;&lt;st&lt;&lt;",";
+                else 
+                    cout&lt;&lt;st;
+            }
+            x=0;//全部回到初始状态
+            st="";
+            s="0x";
+        }
+    }
+    cout&lt;&lt;"}";
+    return 0;
+}</code></pre>
+</body>
+</html>
