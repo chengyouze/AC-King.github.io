@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abc142_d</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h3>题目翻译</h3>
+<p>给定两个数 a 和 b ，求能同时整除 a 和 b 的数的个数，且这些数需要两两互质。</p>
+<h3>题目分析</h3>
+<p>两两互质，也就说明有以下几种情况：</p>
+<p>1：均为不同的质数。</p>
+<p>2：相邻 。</p>
+<p>3：一个是质数，另一个不是他的倍数。</p>
+<p>4：所有数和 1。</p>
+<p>5：相邻奇数</p>
+<p>6：较大数是质数。</p>
+<p>……</p>
+<p>这是常见的情况，其实还有很多。那么我们肯定不能全写到程序里。我们只选择第 1 个性质：均为不同的质数。</p>
+<p>确保了找的答案是质数，然后确保它是这两个数的因数（因为能整除），那么我们只要找到两个数<strong>共同的质因数</strong>。</p>
+<p>共同的质因数，一定是两个数最大公因数的质因数。</p>
+<p>所以找出最大公因数，再找出所有最大公因数的质因数（还要算上特殊的&quot;1&quot;），即为答案。</p>
+<h3>题目代码</h3>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+#define ll long long//数据很大，要long long
+using namespace std;
+ll a,b,s=1;//1一定是两个数的公因数
+ll gcd(ll x,ll y)
+{
+    return y?gcd(y,x%y):x;//辗转相除法求最大公因数
+}
+int main()
+{
+    cin&gt;&gt;a&gt;&gt;b;
+    ll g=gcd(a,b);
+    for(ll i=2;i&lt;=sqrt(g);i++)//枚举最大公因数的质因数
+    {
+        if(g%i==0)//如果是的（后续补充说明）
+        {
+            s++;//找到了一个
+            while(g%i==0)g/=i;//把这个质因数除完
+        }
+    }
+    cout&lt;&lt;(g!=1?++s:s);//如果有剩余的质因数，再加上1
+}</code></pre>
+<h3>补充说明</h3>
+<p>第 15 行 <code>if(g%i==0)</code> 解释</p>
+<p>找到了g 最小能整除的数 i，那么 i <strong>肯定是个质数</strong>，不用加以判断。</p>
+<p>举个不成功的反例验证一下结论。</p>
+<p>如果 i 不是质数，说明 i 还有其他因数，那么 i 的因数也就是 g 的因数了，i 肯定不是最小能被整除的数了。</p>
+<p>所以得出结论，i 肯定是个质数，不用加上质数判断。</p>
+</body>
+</html>
