@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abc142_d</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+</head>
+
+<body background="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn20113%2F480%2Fw1600h1280%2F20190713%2Fa383-hzuhxyn9073690.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646619958&t=c5e6abd9c864ca29e7a9421f28980254">
+<h3>题目翻译</h3>
+<p>输入一个字符串，可不可以在任意一位插入 A，使这个字符串变为 <code>AKIHABARA</code>。</p>
+<h3>题目思路</h3>
+<p><code>AKIHABARA</code> 中只出现了 4 次 A，所以，我们枚举所有可能，每个位置都可以有 <em>选</em> 或 <em>不选</em> 两种可能，所以一共只有 2^4 种可能，十分少。</p>
+<p>我们只要分别枚举 没有 A、一个 A、两个 A、三个 A、四个 A 的情况即可。</p>
+<h3>题目代码</h3>
+<pre><code class="language-cpp">//没有 A
+if(s=="KIHBR"){puts("YES");return 0;}
+//一个 A
+if(s=="AKIHBR"){puts("YES");return 0;}
+if(s=="KIHABR"){puts("YES");return 0;}
+if(s=="KIHBAR"){puts("YES");return 0;}
+if(s=="KIHBRA"){puts("YES");return 0;}
+//两个 A
+if(s=="AKIHABR"){puts("YES");return 0;}
+if(s=="AKIHBAR"){puts("YES");return 0;}
+if(s=="AKIHBRA"){puts("YES");return 0;}
+if(s=="KIHABAR"){puts("YES");return 0;}
+if(s=="KIHABRA"){puts("YES");return 0;}
+if(s=="KIHBARA"){puts("YES");return 0;}
+//三个 A
+if(s=="AKIHABAR"){puts("YES");return 0;}
+if(s=="AKIHABRA"){puts("YES");return 0;}
+if(s=="AKIHBARA"){puts("YES");return 0;}
+if(s=="KIHABARA"){puts("YES");return 0;}
+//四个 A
+if(s=="AKIHABARA"){puts("YES");return 0;}
+//都不满足
+puts("NO");</code></pre>
+</body>
+</html>
