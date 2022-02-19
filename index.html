@@ -1,10 +1,28 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>AC-King's blog</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="shortcut icon" href="images/123.png">
+		<script>
+		var title = "CYX's blog";
+		var ty = 1;
+		function upt_title() {
+			if (ty == 1) {
+				document.title = title;
+			}
+		}
+		window.onfocus = function () {
+			ty = 1;
+			document.title = '恢复正常了...';
+			var t = setTimeout("upt_title()", 1000);
+		};
+		window.onblur = function () {
+			ty = 0;
+			document.title = '快回来~页面崩溃了';
+		};
+	</script>
 	</head>
 	<body class="is-preload">
 
@@ -20,6 +38,7 @@
 									<a href="https://www.luogu.com.cn/team/34377" class="logo"><strong>小学生</strong>专属的团队</a>
 									<ul class="icons">
 										</strong>你可以在这里找到我：</strong>
+										
 										<li><a href="https://github.com/AC-King/chenyuxuan__2009" class="logo">Github</span></a></li>
 										<li><a href="https://www.luogu.com.cn/user/516346" class="logo">Luogu</span></a></li>
 										<li><a href="https://codeforces.com/profile/chenyuxuan__2009" class="logo">Codeforces</span></a></li>
